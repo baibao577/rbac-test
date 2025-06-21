@@ -1,0 +1,1823 @@
+{
+	"info": {
+		"_postman_id": "rbac-api-collection-2024",
+		"name": "RBAC API Test Collection",
+		"description": "Comprehensive test collection for RBAC API with Document and System permissions",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "1. Document Permissions - Set User Permissions",
+			"item": [
+				{
+					"name": "Give user read access to specific file",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"resourcePath\": \"/documents/contracts/contract-2024.pdf\",\n  \"resourceType\": \"file\",\n  \"assignedToType\": \"user\",\n  \"assignedToId\": \"alice@company.com\",\n  \"permission\": \"read\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/permissions/set",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"permissions",
+								"set"
+							]
+						}
+					}
+				},
+				{
+					"name": "Give user write access to folder",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"resourcePath\": \"/projects/alpha/*\",\n  \"resourceType\": \"folder\",\n  \"assignedToType\": \"user\",\n  \"assignedToId\": \"bob@company.com\",\n  \"permission\": \"write\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/permissions/set",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"permissions",
+								"set"
+							]
+						}
+					}
+				},
+				{
+					"name": "Give user manage access to department folder",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"resourcePath\": \"/HR/*\",\n  \"resourceType\": \"folder\",\n  \"assignedToType\": \"user\",\n  \"assignedToId\": \"charlie@company.com\",\n  \"permission\": \"manage\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/permissions/set",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"permissions",
+								"set"
+							]
+						}
+					}
+				},
+				{
+					"name": "Give user AI chat access to research folder",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"resourcePath\": \"/research/*\",\n  \"resourceType\": \"folder\",\n  \"assignedToType\": \"user\",\n  \"assignedToId\": \"dave@company.com\",\n  \"permission\": \"use_for_ai_chat\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/permissions/set",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"permissions",
+								"set"
+							]
+						}
+					}
+				},
+				{
+					"name": "Give user delete access to temp files",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"resourcePath\": \"/temp/*\",\n  \"resourceType\": \"folder\",\n  \"assignedToType\": \"user\",\n  \"assignedToId\": \"eve@company.com\",\n  \"permission\": \"delete\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/permissions/set",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"permissions",
+								"set"
+							]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "2. Document Permissions - Set Group Permissions",
+			"item": [
+				{
+					"name": "Give HR group access to HR folder",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"resourcePath\": \"/HR/*\",\n  \"resourceType\": \"folder\",\n  \"assignedToType\": \"group\",\n  \"assignedToId\": \"{{hrGroupId}}\",\n  \"permission\": \"use_for_ai_chat\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/permissions/set",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"permissions",
+								"set"
+							]
+						}
+					}
+				},
+				{
+					"name": "Give Finance group manage access to financial reports",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"resourcePath\": \"/Finance/reports/*\",\n  \"resourceType\": \"folder\",\n  \"assignedToType\": \"group\",\n  \"assignedToId\": \"{{financeGroupId}}\",\n  \"permission\": \"manage\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/permissions/set",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"permissions",
+								"set"
+							]
+						}
+					}
+				},
+				{
+					"name": "Give Tech Team read access to logs",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"resourcePath\": \"/logs/*\",\n  \"resourceType\": \"folder\",\n  \"assignedToType\": \"group\",\n  \"assignedToId\": \"{{techGroupId}}\",\n  \"permission\": \"read\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/permissions/set",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"permissions",
+								"set"
+							]
+						}
+					}
+				},
+				{
+					"name": "Give Marketing group write access to campaigns",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"resourcePath\": \"/marketing/campaigns/*\",\n  \"resourceType\": \"folder\",\n  \"assignedToType\": \"group\",\n  \"assignedToId\": \"{{marketingGroupId}}\",\n  \"permission\": \"write\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/permissions/set",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"permissions",
+								"set"
+							]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "3. Document Permissions - Set Public Permissions",
+			"item": [
+				{
+					"name": "Give everyone read access to public documents",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"resourcePath\": \"/public/*\",\n  \"resourceType\": \"folder\",\n  \"assignedToType\": \"all\",\n  \"permission\": \"read\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/permissions/set",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"permissions",
+								"set"
+							]
+						}
+					}
+				},
+				{
+					"name": "Give everyone read access to company logo",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"resourcePath\": \"/public/logo.png\",\n  \"resourceType\": \"file\",\n  \"assignedToType\": \"all\",\n  \"permission\": \"read\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/permissions/set",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"permissions",
+								"set"
+							]
+						}
+					}
+				},
+				{
+					"name": "Give everyone AI chat access to knowledge base",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"resourcePath\": \"/knowledge-base/*\",\n  \"resourceType\": \"folder\",\n  \"assignedToType\": \"all\",\n  \"permission\": \"use_for_ai_chat\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/permissions/set",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"permissions",
+								"set"
+							]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "4. System Permissions - Set User Permissions",
+			"item": [
+				{
+					"name": "Give owner full system access",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"resourceType\": \"*\",\n  \"resourceId\": \"*\",\n  \"assignedToType\": \"user\",\n  \"assignedToId\": \"owner@company.com\",\n  \"permission\": \"manage\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/permissions/set-system",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"permissions",
+								"set-system"
+							]
+						}
+					}
+				},
+				{
+					"name": "Give admin user management permissions",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"resourceType\": \"user\",\n  \"resourceId\": \"*\",\n  \"assignedToType\": \"user\",\n  \"assignedToId\": \"admin@company.com\",\n  \"permission\": \"manage\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/permissions/set-system",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"permissions",
+								"set-system"
+							]
+						}
+					}
+				},
+				{
+					"name": "Give user read access to specific reports",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"resourceType\": \"report\",\n  \"resourceId\": \"monthly-sales\",\n  \"assignedToType\": \"user\",\n  \"assignedToId\": \"manager@company.com\",\n  \"permission\": \"read\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/permissions/set-system",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"permissions",
+								"set-system"
+							]
+						}
+					}
+				},
+				{
+					"name": "Give user write access to system settings",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"resourceType\": \"setting\",\n  \"resourceId\": \"email-config\",\n  \"assignedToType\": \"user\",\n  \"assignedToId\": \"sysadmin@company.com\",\n  \"permission\": \"write\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/permissions/set-system",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"permissions",
+								"set-system"
+							]
+						}
+					}
+				},
+				{
+					"name": "Give user guard management permissions",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"resourceType\": \"guard\",\n  \"resourceId\": \"security-rules\",\n  \"assignedToType\": \"user\",\n  \"assignedToId\": \"security@company.com\",\n  \"permission\": \"manage\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/permissions/set-system",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"permissions",
+								"set-system"
+							]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "5. System Permissions - Set Group Permissions",
+			"item": [
+				{
+					"name": "Give Admin group user management access",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"resourceType\": \"user\",\n  \"resourceId\": \"*\",\n  \"assignedToType\": \"group\",\n  \"assignedToId\": \"{{adminGroupId}}\",\n  \"permission\": \"manage\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/permissions/set-system",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"permissions",
+								"set-system"
+							]
+						}
+					}
+				},
+				{
+					"name": "Give Tech Team guard management access",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"resourceType\": \"guard\",\n  \"resourceId\": \"*\",\n  \"assignedToType\": \"group\",\n  \"assignedToId\": \"{{techGroupId}}\",\n  \"permission\": \"manage\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/permissions/set-system",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"permissions",
+								"set-system"
+							]
+						}
+					}
+				},
+				{
+					"name": "Give BD Team report reading access",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"resourceType\": \"report\",\n  \"resourceId\": \"*\",\n  \"assignedToType\": \"group\",\n  \"assignedToId\": \"{{bdGroupId}}\",\n  \"permission\": \"read\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/permissions/set-system",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"permissions",
+								"set-system"
+							]
+						}
+					}
+				},
+				{
+					"name": "Give DevOps group setting management access",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"resourceType\": \"setting\",\n  \"resourceId\": \"*\",\n  \"assignedToType\": \"group\",\n  \"assignedToId\": \"{{devopsGroupId}}\",\n  \"permission\": \"manage\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/permissions/set-system",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"permissions",
+								"set-system"
+							]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "6. System Permissions - Set Public Permissions",
+			"item": [
+				{
+					"name": "Give everyone read access to system reports",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"resourceType\": \"report\",\n  \"resourceId\": \"public-metrics\",\n  \"assignedToType\": \"all\",\n  \"permission\": \"read\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/permissions/set-system",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"permissions",
+								"set-system"
+							]
+						}
+					}
+				},
+				{
+					"name": "Give everyone read access to basic settings",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"resourceType\": \"setting\",\n  \"resourceId\": \"timezone\",\n  \"assignedToType\": \"all\",\n  \"permission\": \"read\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/permissions/set-system",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"permissions",
+								"set-system"
+							]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "7. Permission Checking - Get User Permissions",
+			"item": [
+				{
+					"name": "Get all permissions for Alice (simple format)",
+					"request": {
+						"method": "GET",
+						"url": {
+							"raw": "{{baseUrl}}/permissions/user-permissions?userId=alice@company.com",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"permissions",
+								"user-permissions"
+							],
+							"query": [
+								{
+									"key": "userId",
+									"value": "alice@company.com"
+								}
+							]
+						}
+					}
+				},
+				{
+					"name": "Get all permissions for Alice (structured format)",
+					"request": {
+						"method": "GET",
+						"url": {
+							"raw": "{{baseUrl}}/permissions/user-permissions?userId=alice@company.com&format=structured",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"permissions",
+								"user-permissions"
+							],
+							"query": [
+								{
+									"key": "userId",
+									"value": "alice@company.com"
+								},
+								{
+									"key": "format",
+									"value": "structured"
+								}
+							]
+						}
+					}
+				},
+				{
+					"name": "Get all permissions for admin user",
+					"request": {
+						"method": "GET",
+						"url": {
+							"raw": "{{baseUrl}}/permissions/user-permissions?userId=admin@company.com",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"permissions",
+								"user-permissions"
+							],
+							"query": [
+								{
+									"key": "userId",
+									"value": "admin@company.com"
+								}
+							]
+						}
+					}
+				},
+				{
+					"name": "Get all permissions for admin user (structured)",
+					"request": {
+						"method": "GET",
+						"url": {
+							"raw": "{{baseUrl}}/permissions/user-permissions?userId=admin@company.com&format=structured",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"permissions",
+								"user-permissions"
+							],
+							"query": [
+								{
+									"key": "userId",
+									"value": "admin@company.com"
+								},
+								{
+									"key": "format",
+									"value": "structured"
+								}
+							]
+						}
+					}
+				},
+				{
+					"name": "Get all permissions for owner",
+					"request": {
+						"method": "GET",
+						"url": {
+							"raw": "{{baseUrl}}/permissions/user-permissions?userId=owner@company.com",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"permissions",
+								"user-permissions"
+							],
+							"query": [
+								{
+									"key": "userId",
+									"value": "owner@company.com"
+								}
+							]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "8. Permission Checking - Check Specific Permissions",
+			"item": [
+				{
+					"name": "Check if user can read specific document",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"userId\": \"alice@company.com\",\n  \"permission\": \"document:file:/documents/contracts/contract-2024.pdf:read\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/permissions/check",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"permissions",
+								"check"
+							]
+						}
+					}
+				},
+				{
+					"name": "Check if user can manage HR folder",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"userId\": \"charlie@company.com\",\n  \"permission\": \"document:folder:/HR/*:manage\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/permissions/check",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"permissions",
+								"check"
+							]
+						}
+					}
+				},
+				{
+					"name": "Check if user can manage system users",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"userId\": \"admin@company.com\",\n  \"permission\": \"system:user:*:manage\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/permissions/check",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"permissions",
+								"check"
+							]
+						}
+					}
+				},
+				{
+					"name": "Check if user can read reports",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"userId\": \"manager@company.com\",\n  \"permission\": \"system:report:monthly-sales:read\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/permissions/check",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"permissions",
+								"check"
+							]
+						}
+					}
+				},
+				{
+					"name": "Check if user can manage guards",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"userId\": \"security@company.com\",\n  \"permission\": \"system:guard:security-rules:manage\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/permissions/check",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"permissions",
+								"check"
+							]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "9. Get Accessible Resources",
+			"item": [
+				{
+					"name": "Get resources user can use for AI chat",
+					"request": {
+						"method": "GET",
+						"url": {
+							"raw": "{{baseUrl}}/permissions/accessible-resources?userId=alice@company.com&action=use_for_ai_chat",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"permissions",
+								"accessible-resources"
+							],
+							"query": [
+								{
+									"key": "userId",
+									"value": "alice@company.com"
+								},
+								{
+									"key": "action",
+									"value": "use_for_ai_chat"
+								}
+							]
+						}
+					}
+				},
+				{
+					"name": "Get resources user can read",
+					"request": {
+						"method": "GET",
+						"url": {
+							"raw": "{{baseUrl}}/permissions/accessible-resources?userId=bob@company.com&action=read",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"permissions",
+								"accessible-resources"
+							],
+							"query": [
+								{
+									"key": "userId",
+									"value": "bob@company.com"
+								},
+								{
+									"key": "action",
+									"value": "read"
+								}
+							]
+						}
+					}
+				},
+				{
+					"name": "Get resources user can write",
+					"request": {
+						"method": "GET",
+						"url": {
+							"raw": "{{baseUrl}}/permissions/accessible-resources?userId=charlie@company.com&action=write",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"permissions",
+								"accessible-resources"
+							],
+							"query": [
+								{
+									"key": "userId",
+									"value": "charlie@company.com"
+								},
+								{
+									"key": "action",
+									"value": "write"
+								}
+							]
+						}
+					}
+				},
+				{
+					"name": "Get resources user can manage",
+					"request": {
+						"method": "GET",
+						"url": {
+							"raw": "{{baseUrl}}/permissions/accessible-resources?userId=admin@company.com&action=manage",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"permissions",
+								"accessible-resources"
+							],
+							"query": [
+								{
+									"key": "userId",
+									"value": "admin@company.com"
+								},
+								{
+									"key": "action",
+									"value": "manage"
+								}
+							]
+						}
+					}
+				},
+				{
+					"name": "Get resources user can delete",
+					"request": {
+						"method": "GET",
+						"url": {
+							"raw": "{{baseUrl}}/permissions/accessible-resources?userId=eve@company.com&action=delete",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"permissions",
+								"accessible-resources"
+							],
+							"query": [
+								{
+									"key": "userId",
+									"value": "eve@company.com"
+								},
+								{
+									"key": "action",
+									"value": "delete"
+								}
+							]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "10. Helper Endpoints for Client-Friendly Checking",
+			"item": [
+				{
+					"name": "Check if user can access specific file",
+					"request": {
+						"method": "GET",
+						"url": {
+							"raw": "{{baseUrl}}/permissions/can-access-file?userId=alice@company.com&filePath=/documents/contracts/contract-2024.pdf&action=read",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"permissions",
+								"can-access-file"
+							],
+							"query": [
+								{
+									"key": "userId",
+									"value": "alice@company.com"
+								},
+								{
+									"key": "filePath",
+									"value": "/documents/contracts/contract-2024.pdf"
+								},
+								{
+									"key": "action",
+									"value": "read"
+								}
+							]
+						}
+					}
+				},
+				{
+					"name": "Check if user can access folder",
+					"request": {
+						"method": "GET",
+						"url": {
+							"raw": "{{baseUrl}}/permissions/can-access-folder?userId=bob@company.com&folderPath=/projects/alpha&action=write",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"permissions",
+								"can-access-folder"
+							],
+							"query": [
+								{
+									"key": "userId",
+									"value": "bob@company.com"
+								},
+								{
+									"key": "folderPath",
+									"value": "/projects/alpha"
+								},
+								{
+									"key": "action",
+									"value": "write"
+								}
+							]
+						}
+					}
+				},
+				{
+					"name": "Check if user can manage system resource",
+					"request": {
+						"method": "GET",
+						"url": {
+							"raw": "{{baseUrl}}/permissions/can-manage-resource?userId=admin@company.com&resourceType=user&resourceId=*",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"permissions",
+								"can-manage-resource"
+							],
+							"query": [
+								{
+									"key": "userId",
+									"value": "admin@company.com"
+								},
+								{
+									"key": "resourceType",
+									"value": "user"
+								},
+								{
+									"key": "resourceId",
+									"value": "*"
+								}
+							]
+						}
+					}
+				},
+				{
+					"name": "Check if user can manage specific system resource",
+					"request": {
+						"method": "GET",
+						"url": {
+							"raw": "{{baseUrl}}/permissions/can-manage-resource?userId=security@company.com&resourceType=guard&resourceId=security-rules",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"permissions",
+								"can-manage-resource"
+							],
+							"query": [
+								{
+									"key": "userId",
+									"value": "security@company.com"
+								},
+								{
+									"key": "resourceType",
+									"value": "guard"
+								},
+								{
+									"key": "resourceId",
+									"value": "security-rules"
+								}
+							]
+						}
+					}
+				},
+				{
+					"name": "Get accessible paths for user",
+					"request": {
+						"method": "GET",
+						"url": {
+							"raw": "{{baseUrl}}/permissions/accessible-paths?userId=alice@company.com&action=read",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"permissions",
+								"accessible-paths"
+							],
+							"query": [
+								{
+									"key": "userId",
+									"value": "alice@company.com"
+								},
+								{
+									"key": "action",
+									"value": "read"
+								}
+							]
+						}
+					}
+				},
+				{
+					"name": "Get accessible paths for AI chat",
+					"request": {
+						"method": "GET",
+						"url": {
+							"raw": "{{baseUrl}}/permissions/accessible-paths?userId=dave@company.com&action=use_for_ai_chat",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"permissions",
+								"accessible-paths"
+							],
+							"query": [
+								{
+									"key": "userId",
+									"value": "dave@company.com"
+								},
+								{
+									"key": "action",
+									"value": "use_for_ai_chat"
+								}
+							]
+						}
+					}
+				},
+				{
+					"name": "Get accessible paths for management",
+					"request": {
+						"method": "GET",
+						"url": {
+							"raw": "{{baseUrl}}/permissions/accessible-paths?userId=admin@company.com&action=manage",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"permissions",
+								"accessible-paths"
+							],
+							"query": [
+								{
+									"key": "userId",
+									"value": "admin@company.com"
+								},
+								{
+									"key": "action",
+									"value": "manage"
+								}
+							]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "11. Permission Management - List Permissions",
+			"item": [
+				{
+					"name": "Get all document permissions",
+					"request": {
+						"method": "GET",
+						"url": {
+							"raw": "{{baseUrl}}/permissions/document",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"permissions",
+								"document"
+							]
+						}
+					}
+				},
+				{
+					"name": "Get all system permissions",
+					"request": {
+						"method": "GET",
+						"url": {
+							"raw": "{{baseUrl}}/permissions/system",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"permissions",
+								"system"
+							]
+						}
+					}
+				},
+				{
+					"name": "Get specific document permission by ID",
+					"request": {
+						"method": "GET",
+						"url": {
+							"raw": "{{baseUrl}}/permissions/document/{{documentPermissionId}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"permissions",
+								"document",
+								"{{documentPermissionId}}"
+							]
+						}
+					}
+				},
+				{
+					"name": "Get specific system permission by ID",
+					"request": {
+						"method": "GET",
+						"url": {
+							"raw": "{{baseUrl}}/permissions/system/{{systemPermissionId}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"permissions",
+								"system",
+								"{{systemPermissionId}}"
+							]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "12. Permission Management - Update Permissions",
+			"item": [
+				{
+					"name": "Update document permission",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"resourcePath\": \"/HR/updated-folder/*\",\n  \"resourceType\": \"folder\",\n  \"assignedToType\": \"user\",\n  \"assignedToId\": \"alice@company.com\",\n  \"permission\": \"manage\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/permissions/document/{{documentPermissionId}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"permissions",
+								"document",
+								"{{documentPermissionId}}"
+							]
+						}
+					}
+				},
+				{
+					"name": "Update system permission",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"resourceType\": \"user\",\n  \"resourceId\": \"*\",\n  \"assignedToType\": \"group\",\n  \"assignedToId\": \"{{adminGroupId}}\",\n  \"permission\": \"write\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/permissions/system/{{systemPermissionId}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"permissions",
+								"system",
+								"{{systemPermissionId}}"
+							]
+						}
+					}
+				},
+				{
+					"name": "Change permission level (read → write)",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"resourcePath\": \"/documents/report.pdf\",\n  \"resourceType\": \"file\",\n  \"assignedToType\": \"user\",\n  \"assignedToId\": \"bob@company.com\",\n  \"permission\": \"write\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/permissions/document/{{documentPermissionId}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"permissions",
+								"document",
+								"{{documentPermissionId}}"
+							]
+						}
+					}
+				},
+				{
+					"name": "Change assignment from user to group",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"resourcePath\": \"/marketing/*\",\n  \"resourceType\": \"folder\",\n  \"assignedToType\": \"group\",\n  \"assignedToId\": \"{{marketingGroupId}}\",\n  \"permission\": \"use_for_ai_chat\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/permissions/document/{{documentPermissionId}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"permissions",
+								"document",
+								"{{documentPermissionId}}"
+							]
+						}
+					}
+				},
+				{
+					"name": "Upgrade system permission (read → manage)",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"resourceType\": \"setting\",\n  \"resourceId\": \"*\",\n  \"assignedToType\": \"user\",\n  \"assignedToId\": \"admin@company.com\",\n  \"permission\": \"manage\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/permissions/system/{{systemPermissionId}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"permissions",
+								"system",
+								"{{systemPermissionId}}"
+							]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "13. Permission Management - Delete Permissions",
+			"item": [
+				{
+					"name": "Remove document permission",
+					"request": {
+						"method": "DELETE",
+						"url": {
+							"raw": "{{baseUrl}}/permissions/document/{{documentPermissionId}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"permissions",
+								"document",
+								"{{documentPermissionId}}"
+							]
+						}
+					}
+				},
+				{
+					"name": "Remove system permission",
+					"request": {
+						"method": "DELETE",
+						"url": {
+							"raw": "{{baseUrl}}/permissions/system/{{systemPermissionId}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"permissions",
+								"system",
+								"{{systemPermissionId}}"
+							]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "14. Complex Scenarios - Hierarchical Permissions",
+			"item": [
+				{
+					"name": "Set manage permission (should grant all others)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"resourcePath\": \"/projects/beta/*\",\n  \"resourceType\": \"folder\",\n  \"assignedToType\": \"user\",\n  \"assignedToId\": \"project-manager@company.com\",\n  \"permission\": \"manage\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/permissions/set",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"permissions",
+								"set"
+							]
+						}
+					}
+				},
+				{
+					"name": "Test if user can read (should be true via manage)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"userId\": \"project-manager@company.com\",\n  \"permission\": \"document:folder:/projects/beta/*:read\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/permissions/check",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"permissions",
+								"check"
+							]
+						}
+					}
+				},
+				{
+					"name": "Test if user can write (should be true via manage)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"userId\": \"project-manager@company.com\",\n  \"permission\": \"document:folder:/projects/beta/*:write\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/permissions/check",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"permissions",
+								"check"
+							]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "15. Complex Scenarios - Wildcard Permissions",
+			"item": [
+				{
+					"name": "Give user all system permissions",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"resourceType\": \"*\",\n  \"resourceId\": \"*\",\n  \"assignedToType\": \"user\",\n  \"assignedToId\": \"superadmin@company.com\",\n  \"permission\": \"*\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/permissions/set-system",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"permissions",
+								"set-system"
+							]
+						}
+					}
+				},
+				{
+					"name": "Test wildcard system permission - user delete",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"userId\": \"superadmin@company.com\",\n  \"permission\": \"system:user:specific-user:delete\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/permissions/check",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"permissions",
+								"check"
+							]
+						}
+					}
+				},
+				{
+					"name": "Test wildcard system permission - guard manage",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"userId\": \"superadmin@company.com\",\n  \"permission\": \"system:guard:any-guard:manage\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/permissions/check",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"permissions",
+								"check"
+							]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "16. Error Handling Tests",
+			"item": [
+				{
+					"name": "Try to update non-existent permission",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"resourcePath\": \"/test/*\",\n  \"resourceType\": \"folder\",\n  \"assignedToType\": \"user\",\n  \"assignedToId\": \"test@company.com\",\n  \"permission\": \"read\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/permissions/document/non-existent-uuid",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"permissions",
+								"document",
+								"non-existent-uuid"
+							]
+						}
+					}
+				},
+				{
+					"name": "Try to delete non-existent permission",
+					"request": {
+						"method": "DELETE",
+						"url": {
+							"raw": "{{baseUrl}}/permissions/document/non-existent-uuid",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"permissions",
+								"document",
+								"non-existent-uuid"
+							]
+						}
+					}
+				},
+				{
+					"name": "Invalid permission type",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"resourcePath\": \"/test/*\",\n  \"resourceType\": \"folder\",\n  \"assignedToType\": \"user\",\n  \"assignedToId\": \"test@company.com\",\n  \"permission\": \"invalid_permission\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/permissions/set",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"permissions",
+								"set"
+							]
+						}
+					}
+				},
+				{
+					"name": "Invalid system resource type",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"resourceType\": \"invalid_resource\",\n  \"resourceId\": \"*\",\n  \"assignedToType\": \"user\",\n  \"assignedToId\": \"test@company.com\",\n  \"permission\": \"read\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/permissions/set-system",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"permissions",
+								"set-system"
+							]
+						}
+					}
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:3000/api",
+			"type": "string"
+		},
+		{
+			"key": "hrGroupId",
+			"value": "replace-with-actual-hr-group-uuid",
+			"type": "string"
+		},
+		{
+			"key": "financeGroupId",
+			"value": "replace-with-actual-finance-group-uuid",
+			"type": "string"
+		},
+		{
+			"key": "techGroupId",
+			"value": "replace-with-actual-tech-group-uuid",
+			"type": "string"
+		},
+		{
+			"key": "adminGroupId",
+			"value": "replace-with-actual-admin-group-uuid",
+			"type": "string"
+		},
+		{
+			"key": "bdGroupId",
+			"value": "replace-with-actual-bd-group-uuid",
+			"type": "string"
+		},
+		{
+			"key": "marketingGroupId",
+			"value": "replace-with-actual-marketing-group-uuid",
+			"type": "string"
+		},
+		{
+			"key": "devopsGroupId",
+			"value": "replace-with-actual-devops-group-uuid",
+			"type": "string"
+		},
+		{
+			"key": "documentPermissionId",
+			"value": "replace-with-actual-document-permission-uuid",
+			"type": "string"
+		},
+		{
+			"key": "systemPermissionId",
+			"value": "replace-with-actual-system-permission-uuid",
+			"type": "string"
+		}
+	]
+}
